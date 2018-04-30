@@ -20,9 +20,8 @@ public class DefaultEventNotifier implements IEventNotificationListener {
 	/**
 	 * Constructor for DefaultEventNotifier.
 	 */
-	public DefaultEventNotifier() {
-		super();
-	}
+	//TASK 2-1 SMELL WITHIN A CLASS
+	//Constructer not used at all, will remove
 
 	/**
 	 * @see main.java.memoranda.interfaces.IEventNotificationListener#eventIsOccured(main.java.memoranda.interfaces.IEvent)

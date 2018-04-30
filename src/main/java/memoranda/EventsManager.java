@@ -150,8 +150,10 @@ public class EventsManager {
 		el.addAttribute(new Attribute("hour", String.valueOf(hh)));
 		el.addAttribute(new Attribute("min", String.valueOf(mm)));
 		el.addAttribute(new Attribute("startDate", startDate.toString()));
-		if (endDate != null)
+		if (endDate != null) {
 			el.addAttribute(new Attribute("endDate", endDate.toString()));
+		}
+			
 		el.addAttribute(new Attribute("period", String.valueOf(period)));
 		// new attribute for wrkin days - ivanrise
 		el.addAttribute(new Attribute("workingDays",String.valueOf(workDays)));
@@ -163,8 +165,10 @@ public class EventsManager {
 	public static Collection getRepeatableEvents() {
 		Vector v = new Vector();
 		Element rep = _root.getFirstChildElement("repeatable");
-		if (rep == null)
+		if (rep == null) {
 			return v;
+		}
+			
 		Elements els = rep.getChildElements("event");
 		for (int i = 0; i < els.size(); i++)
 			v.add(new EventImpl(els.get(i)));
@@ -254,14 +258,18 @@ public class EventsManager {
 
 	private static Day createDay(CalendarDate date) {
 		Year y = getYear(date.getYear());
-		if (y == null)
+		if (y == null) {
 			y = createYear(date.getYear());
+		}
+			
 		Month m = y.getMonth(date.getMonth());
 		if (m == null)
 			m = y.createMonth(date.getMonth());
 		Day d = m.getDay(date.getDay());
-		if (d == null)
+		if (d == null) {
 			d = m.createDay(date.getDay());
+		}
+			
 		return d;
 	}
 
@@ -349,11 +357,13 @@ public class EventsManager {
 				.intValue();
 		}
 
-		public Day getDay(int d) {
-			if (mElement == null)
+		public Day getDay(int day) {
+			if (mElement == null) {
 				return null;
+			}
+				
 			Elements ds = mElement.getChildElements("day");
-			String dd = new Integer(d).toString();
+			String dd = new Integer(day).toString();
 			for (int i = 0; i < ds.size(); i++)
 				if (ds.get(i).getAttribute("day").getValue().equals(dd))
 					return new Day(ds.get(i));
@@ -361,14 +371,14 @@ public class EventsManager {
 			return null;
 		}
 
-		private Day createDay(int d) {
+		private Day createDay(int day) {
 			Element el = new Element("day");
-			el.addAttribute(new Attribute("day", new Integer(d).toString()));
+			el.addAttribute(new Attribute("day", new Integer(day).toString()));
 			el.addAttribute(
 				new Attribute(
 					"date",
 					new CalendarDate(
-						d,
+						day,
 						getValue(),
 						new Integer(
 							((Element) mElement.getParent())
@@ -382,8 +392,10 @@ public class EventsManager {
 		}
 
 		public Vector getDays() {
-			if (mElement == null)
+			if (mElement == null) {
 				return null;
+			}
+				
 			Vector v = new Vector();
 			Elements ds = mElement.getChildElements("day");
 			for (int i = 0; i < ds.size(); i++)
