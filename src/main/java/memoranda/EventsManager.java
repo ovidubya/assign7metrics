@@ -283,8 +283,11 @@ public class EventsManager {
 
 	private static Day getDay(CalendarDate date) {
 		Year y = getYear(date.getYear());
+		if(y == null) {
+			return null;
+		}
 		Month m = y.getMonth(date.getMonth());
-		if(y == null || m == null) {
+		if(m == null) {
 			return null;
 		}
 		return m.getDay(date.getDay());
